@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL") // .env から DB の URL を読み込む
+}
+
+model PortfolioApp {
+  id                  Int      @id @default(autoincrement())
+  pf_description_short String  @db.Text
+  pf_description_long  String? @db.Text
+  pf_link             String  @unique @db.VarChar(255)
+  pf_img              String? @db.Text
+  pf_comment          Json?
+  pf_category         String? @db.VarChar(50)
+  created_at          DateTime @default(now())
+  updated_at          DateTime @updatedAt
+}
